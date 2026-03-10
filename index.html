@@ -1,8 +1,8 @@
 diff --git a/index.html b/index.html
-index f960839205f1700149e85652c4d920e4dada19af..4553f5259e493edcf9ce06bf95912d3aca367f14 100644
+index f960839205f1700149e85652c4d920e4dada19af..68918cb4b8e173d251295b9f78078514904a0168 100644
 --- a/index.html
 +++ b/index.html
-@@ -1,989 +1,838 @@
+@@ -1,989 +1,826 @@
  <!DOCTYPE html>
  <html lang="de">
  <head>
@@ -1085,7 +1085,12 @@ index f960839205f1700149e85652c4d920e4dada19af..4553f5259e493edcf9ce06bf95912d3a
        </div>
 -      <div class="contact-form reveal">
 +
-+      <form id="contact-form" class="contact-form reveal" novalidate>
++      <form id="contact-form" class="contact-form reveal" action="https://formsubmit.co/info@hg-automations.de" method="POST">
++
++        <input type="hidden" name="_subject" value="Neue Anfrage über hg-automations.de" />
++        <input type="hidden" name="_captcha" value="false" />
++        <input type="hidden" name="_template" value="table" />
++        <input type="hidden" name="_next" value="https://hg-automations.de/#kontakt" />
          <div class="form-row">
 -          <div class="form-group">
 -            <label>Vorname</label>
@@ -1127,8 +1132,8 @@ index f960839205f1700149e85652c4d920e4dada19af..4553f5259e493edcf9ce06bf95912d3a
 -        <button class="form-submit">Anfrage senden →</button>
 -      </div>
 +        <div class="form-group"><label for="nachricht">Nachricht</label><textarea id="nachricht" name="Nachricht" placeholder="Kurze Beschreibung Ihres Betriebs und was Sie sich vorstellen..." required></textarea></div>
-+        <button type="submit" class="form-submit">Anfrage per E-Mail senden →</button>
-+        <p class="form-note">Mit dem Klick öffnet sich Ihr E-Mail-Programm mit vorausgefüllter Anfrage an <strong>info@hg-automations.de</strong>.</p>
++        <button type="submit" class="form-submit">Anfrage senden →</button>
++        <p class="form-note">Die Anfrage wird direkt an <strong>info@hg-automations.de</strong> gesendet.</p>
 +      </form>
      </div>
    </section>
@@ -1251,23 +1256,6 @@ index f960839205f1700149e85652c4d920e4dada19af..4553f5259e493edcf9ce06bf95912d3a
      }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
      reveals.forEach(el => observer.observe(el));
 +
-+    const form = document.getElementById('contact-form');
-+    form.addEventListener('submit', (event) => {
-+      event.preventDefault();
-+      if (!form.checkValidity()) {
-+        form.reportValidity();
-+        return;
-+      }
-+
-+      const formData = new FormData(form);
-+      const subject = 'Neue Anfrage über hg-automations.de';
-+      const body = Array.from(formData.entries())
-+        .map(([key, value]) => `${key}: ${value}`)
-+        .join('\n');
-+
-+      const mailtoLink = `mailto:info@hg-automations.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-+      window.location.href = mailtoLink;
-+    });
    </script>
  </body>
  </html>
