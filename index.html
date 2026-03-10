@@ -886,7 +886,7 @@
     <div class="footer-links">
       <a href="#" onclick="openModal('impressum'); return false;">Impressum</a>
       <a href="#" onclick="openModal('datenschutz'); return false;">Datenschutz</a>
-      <a href="mailto:info@hg-automations.de">Kontakt</a>
+      <a href="/cdn-cgi/l/email-protection#aac3c4ccc5eac2cd87cbdfdec5c7cbdec3c5c4d984cecf">Kontakt</a>
     </div>
   </footer>
 
@@ -906,7 +906,7 @@
         Deutschland</p>
 
         <p style="margin-top:1.5rem;"><strong>Kontakt</strong><br>
-        E-Mail: <a href="mailto:info@hg-automations.de" style="color:#1B6EF3;">info@hg-automations.de</a></p>
+        E-Mail: <a href="/cdn-cgi/l/email-protection#b4dddad2dbf4dcd399d5c1c0dbd9d5c0dddbdac79ad0d1" style="color:#1B6EF3;"><span class="__cf_email__" data-cfemail="dcb5b2bab39cb4bbf1bda9a8b3b1bda8b5b3b2aff2b8b9">[email&#160;protected]</span></a></p>
 
         <p style="margin-top:1.5rem; color:#6B7280; font-size:0.85rem;">
         <strong>Hinweis:</strong> Die Gewerbeanmeldung ist in Vorbereitung. Sobald eine USt-IdNr. und Handelsregisternummer vorliegen, wird das Impressum entsprechend aktualisiert.
@@ -932,7 +932,7 @@
         <p>Verantwortlicher im Sinne der DSGVO ist:<br>
         <strong>Gabriel Kasapoglu</strong><br>
         [DEINE STRASSE UND HAUSNUMMER], [PLZ] Köln<br>
-        E-Mail: <a href="mailto:info@hg-automations.de" style="color:#1B6EF3;">info@hg-automations.de</a></p>
+        E-Mail: <a href="/cdn-cgi/l/email-protection#c1a8afa7ae81a9a6eca0b4b5aeaca0b5a8aeafb2efa5a4" style="color:#1B6EF3;"><span class="__cf_email__" data-cfemail="2a43444c456a424d074b5f5e45474b5e43454459044e4f">[email&#160;protected]</span></a></p>
 
         <h3 style="margin-top:1.5rem; margin-bottom:0.5rem; font-size:1rem; font-weight:600; color:#0D0F14;">2. Erhebung und Speicherung personenbezogener Daten</h3>
         <p>Beim Aufruf unserer Website werden durch den Browser automatisch folgende Daten an unseren Server übermittelt: IP-Adresse, Datum und Uhrzeit des Zugriffs, Name und URL der abgerufenen Datei, Browser und Betriebssystem. Diese Daten werden ausschließlich zur Gewährleistung eines störungsfreien Betriebs der Seite sowie zur Verbesserung unseres Angebots ausgewertet und ermöglichen keine Rückschlüsse auf Ihre Person. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
@@ -951,7 +951,7 @@
 
         <h3 style="margin-top:1.5rem; margin-bottom:0.5rem; font-size:1rem; font-weight:600; color:#0D0F14;">7. Ihre Rechte</h3>
         <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten: Recht auf Auskunft (Art. 15 DSGVO), Recht auf Berichtigung (Art. 16 DSGVO), Recht auf Löschung (Art. 17 DSGVO), Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO), Recht auf Datenübertragbarkeit (Art. 20 DSGVO) sowie Recht auf Widerspruch gegen die Verarbeitung (Art. 21 DSGVO).</p>
-        <p style="margin-top:0.75rem;">Zur Geltendmachung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:info@hg-automations.de" style="color:#1B6EF3;">info@hg-automations.de</a></p>
+        <p style="margin-top:0.75rem;">Zur Geltendmachung Ihrer Rechte wenden Sie sich bitte an: <a href="/cdn-cgi/l/email-protection#2940474f4669414e04485c5d4644485d4046475a074d4c" style="color:#1B6EF3;"><span class="__cf_email__" data-cfemail="0c65626a634c646b216d797863616d786563627f226869">[email&#160;protected]</span></a></p>
 
         <h3 style="margin-top:1.5rem; margin-bottom:0.5rem; font-size:1rem; font-weight:600; color:#0D0F14;">8. Beschwerderecht</h3>
         <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren. Zuständig ist die Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW), <a href="https://www.ldi.nrw.de" target="_blank" style="color:#1B6EF3;">www.ldi.nrw.de</a>.</p>
@@ -976,5 +976,14 @@
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-  
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
