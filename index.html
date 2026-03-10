@@ -85,6 +85,24 @@
 
     .nav-cta:hover { opacity: 0.85; }
 
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--dark);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
     /* HERO */
     .hero {
       min-height: 100vh;
@@ -645,7 +663,26 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        flex-direction: column;
+        padding: 1.5rem 6vw;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { padding: 0.75rem 0; }
+      .nav-links a { font-size: 1rem; }
+      .nav-cta { display: inline-block; margin-top: 0.5rem; text-align: center; }
       .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
       .steps::before { display: none; }
       .form-row { grid-template-columns: 1fr; }
@@ -664,6 +701,9 @@
       <li><a href="#ueber-uns">Über uns</a></li>
       <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
     </ul>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -803,7 +843,7 @@
       <div class="about-text reveal">
         <div class="section-label">Über uns</div>
         <h2>Zwei Gründer.<br><em>Eine Mission.</em></h2>
-        <p class="section-sub">HG Automations wurde von Gabriel und Lenni gegründet — mit dem Ziel, Handwerksbetrieben modernste KI-Technologie zugänglich zu machen, ohne technisches Vorwissen vorauszusetzen.</p>
+        <p class="section-sub">HG Automations wurde von Gabriel und Lennard gegründet — mit dem Ziel, Handwerksbetrieben modernste KI-Technologie zugänglich zu machen, ohne technisches Vorwissen vorauszusetzen.</p>
         <p class="section-sub" style="margin-top: 1rem;">Wir verstehen die Herausforderungen des Alltags im Handwerk: voller Terminkalender, klingelndes Telefon, kein Moment für Bürokratie. Genau dafür sind wir da.</p>
         <div class="team">
           <div class="team-member">
@@ -816,7 +856,7 @@
           <div class="team-member">
             <div class="team-avatar">LH</div>
             <div>
-              <div class="team-name">Lenni Hof</div>
+              <div class="team-name">Lennard Hof</div>
               <div class="team-role">Vertrieb & Kundenbetreuung</div>
             </div>
           </div>
@@ -834,35 +874,35 @@
         <p class="section-sub">Schreiben Sie uns — wir melden uns innerhalb von 24 Stunden und besprechen gemeinsam, wie wir Ihren Betrieb entlasten können.</p>
         <div class="contact-detail">
           <span>✉️</span>
-          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b22252d240b232c662a3e3f24262a3f22242538652f2e">[email&#160;protected]</a></span>
+          <span><a href="mailto:info@hg-automations.de" style="color:var(--gray); text-decoration:none;">info@hg-automations.de</a></span>
         </div>
         <div class="contact-detail">
           <span>📍</span>
           <span>Köln, Deutschland</span>
         </div>
       </div>
-      <div class="contact-form reveal">
+      <form class="contact-form reveal" id="contact-form">
         <div class="form-row">
           <div class="form-group">
-            <label>Vorname</label>
-            <input type="text" placeholder="Max" />
+            <label>Vorname *</label>
+            <input type="text" name="vorname" placeholder="Max" required />
           </div>
           <div class="form-group">
-            <label>Nachname</label>
-            <input type="text" placeholder="Mustermann" />
+            <label>Nachname *</label>
+            <input type="text" name="nachname" placeholder="Mustermann" required />
           </div>
         </div>
         <div class="form-group">
           <label>Unternehmen</label>
-          <input type="text" placeholder="Mustermann Heizung & Sanitär GmbH" />
+          <input type="text" name="unternehmen" placeholder="Mustermann Heizung & Sanitär GmbH" />
         </div>
         <div class="form-group">
-          <label>E-Mail</label>
-          <input type="email" placeholder="max@mustermann-shk.de" />
+          <label>E-Mail *</label>
+          <input type="email" name="email" placeholder="max@mustermann-shk.de" required />
         </div>
         <div class="form-group">
           <label>Branche</label>
-          <select>
+          <select name="branche">
             <option value="">Bitte wählen...</option>
             <option>Sanitär / Heizung / Klima (SHK)</option>
             <option>Elektro</option>
@@ -871,11 +911,12 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Nachricht</label>
-          <textarea placeholder="Kurze Beschreibung Ihres Betriebs und was Sie sich vorstellen..."></textarea>
+          <label>Nachricht *</label>
+          <textarea name="nachricht" placeholder="Kurze Beschreibung Ihres Betriebs und was Sie sich vorstellen..." required></textarea>
         </div>
-        <button class="form-submit">Anfrage senden →</button>
-      </div>
+        <button type="submit" class="form-submit">Anfrage senden →</button>
+        <div id="form-status" style="display:none; margin-top:1rem; padding:1rem; border-radius:8px; font-size:0.9rem; text-align:center;"></div>
+      </form>
     </div>
   </section>
 
@@ -886,7 +927,7 @@
     <div class="footer-links">
       <a href="#" onclick="openModal('impressum'); return false;">Impressum</a>
       <a href="#" onclick="openModal('datenschutz'); return false;">Datenschutz</a>
-      <a href="/cdn-cgi/l/email-protection#aac3c4ccc5eac2cd87cbdfdec5c7cbdec3c5c4d984cecf">Kontakt</a>
+      <a href="mailto:info@hg-automations.de">Kontakt</a>
     </div>
   </footer>
 
@@ -906,7 +947,7 @@
         Deutschland</p>
 
         <p style="margin-top:1.5rem;"><strong>Kontakt</strong><br>
-        E-Mail: <a href="/cdn-cgi/l/email-protection#b4dddad2dbf4dcd399d5c1c0dbd9d5c0dddbdac79ad0d1" style="color:#1B6EF3;"><span class="__cf_email__" data-cfemail="dcb5b2bab39cb4bbf1bda9a8b3b1bda8b5b3b2aff2b8b9">[email&#160;protected]</span></a></p>
+        E-Mail: <a href="mailto:info@hg-automations.de" style="color:#1B6EF3;">info@hg-automations.de</a></p>
 
         <p style="margin-top:1.5rem; color:#6B7280; font-size:0.85rem;">
         <strong>Hinweis:</strong> Die Gewerbeanmeldung ist in Vorbereitung. Sobald eine USt-IdNr. und Handelsregisternummer vorliegen, wird das Impressum entsprechend aktualisiert.
@@ -932,7 +973,7 @@
         <p>Verantwortlicher im Sinne der DSGVO ist:<br>
         <strong>Gabriel Kasapoglu</strong><br>
         [DEINE STRASSE UND HAUSNUMMER], [PLZ] Köln<br>
-        E-Mail: <a href="/cdn-cgi/l/email-protection#c1a8afa7ae81a9a6eca0b4b5aeaca0b5a8aeafb2efa5a4" style="color:#1B6EF3;"><span class="__cf_email__" data-cfemail="2a43444c456a424d074b5f5e45474b5e43454459044e4f">[email&#160;protected]</span></a></p>
+        E-Mail: <a href="mailto:info@hg-automations.de" style="color:#1B6EF3;">info@hg-automations.de</a></p>
 
         <h3 style="margin-top:1.5rem; margin-bottom:0.5rem; font-size:1rem; font-weight:600; color:#0D0F14;">2. Erhebung und Speicherung personenbezogener Daten</h3>
         <p>Beim Aufruf unserer Website werden durch den Browser automatisch folgende Daten an unseren Server übermittelt: IP-Adresse, Datum und Uhrzeit des Zugriffs, Name und URL der abgerufenen Datei, Browser und Betriebssystem. Diese Daten werden ausschließlich zur Gewährleistung eines störungsfreien Betriebs der Seite sowie zur Verbesserung unseres Angebots ausgewertet und ermöglichen keine Rückschlüsse auf Ihre Person. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
@@ -951,7 +992,7 @@
 
         <h3 style="margin-top:1.5rem; margin-bottom:0.5rem; font-size:1rem; font-weight:600; color:#0D0F14;">7. Ihre Rechte</h3>
         <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten: Recht auf Auskunft (Art. 15 DSGVO), Recht auf Berichtigung (Art. 16 DSGVO), Recht auf Löschung (Art. 17 DSGVO), Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO), Recht auf Datenübertragbarkeit (Art. 20 DSGVO) sowie Recht auf Widerspruch gegen die Verarbeitung (Art. 21 DSGVO).</p>
-        <p style="margin-top:0.75rem;">Zur Geltendmachung Ihrer Rechte wenden Sie sich bitte an: <a href="/cdn-cgi/l/email-protection#2940474f4669414e04485c5d4644485d4046475a074d4c" style="color:#1B6EF3;"><span class="__cf_email__" data-cfemail="0c65626a634c646b216d797863616d786563627f226869">[email&#160;protected]</span></a></p>
+        <p style="margin-top:0.75rem;">Zur Geltendmachung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:info@hg-automations.de" style="color:#1B6EF3;">info@hg-automations.de</a></p>
 
         <h3 style="margin-top:1.5rem; margin-bottom:0.5rem; font-size:1rem; font-weight:600; color:#0D0F14;">8. Beschwerderecht</h3>
         <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren. Zuständig ist die Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW), <a href="https://www.ldi.nrw.de" target="_blank" style="color:#1B6EF3;">www.ldi.nrw.de</a>.</p>
@@ -972,6 +1013,82 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+    // Mobile menu
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('open');
+    }
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.remove('open');
+      });
+    });
+
+    // Contact form
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var btn = form.querySelector('.form-submit');
+      var status = document.getElementById('form-status');
+      var data = {
+        vorname: form.vorname.value.trim(),
+        nachname: form.nachname.value.trim(),
+        unternehmen: form.unternehmen.value.trim(),
+        email: form.email.value.trim(),
+        branche: form.branche.value,
+        nachricht: form.nachricht.value.trim()
+      };
+
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet...';
+      status.style.display = 'none';
+
+      fetch('https://formsubmit.co/ajax/info@hg-automations.de', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          Vorname: data.vorname,
+          Nachname: data.nachname,
+          Unternehmen: data.unternehmen,
+          'E-Mail': data.email,
+          Branche: data.branche,
+          Nachricht: data.nachricht,
+          _subject: 'Neue Anfrage von ' + data.vorname + ' ' + data.nachname + (data.unternehmen ? ' — ' + data.unternehmen : '')
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(result) {
+        if (result.success) {
+          status.style.display = 'block';
+          status.style.background = '#D1FAE5';
+          status.style.color = '#065F46';
+          status.textContent = 'Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet. Wir melden uns innerhalb von 24 Stunden.';
+          form.reset();
+        } else {
+          throw new Error('fail');
+        }
+      })
+      .catch(function() {
+        var subject = encodeURIComponent('Neue Anfrage von ' + data.vorname + ' ' + data.nachname);
+        var body = encodeURIComponent(
+          'Vorname: ' + data.vorname + '\n' +
+          'Nachname: ' + data.nachname + '\n' +
+          'Unternehmen: ' + data.unternehmen + '\n' +
+          'E-Mail: ' + data.email + '\n' +
+          'Branche: ' + data.branche + '\n\n' +
+          'Nachricht:\n' + data.nachricht
+        );
+        window.location.href = 'mailto:info@hg-automations.de?subject=' + subject + '&body=' + body;
+        status.style.display = 'block';
+        status.style.background = '#FEF3C7';
+        status.style.color = '#92400E';
+        status.innerHTML = 'Ihr E-Mail-Programm wird geöffnet. Falls nicht, schreiben Sie uns direkt an <a href="mailto:info@hg-automations.de" style="color:#92400E; font-weight:500;">info@hg-automations.de</a>.';
+      })
+      .finally(function() {
+        btn.disabled = false;
+        btn.textContent = 'Anfrage senden →';
+      });
+    });
 
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
