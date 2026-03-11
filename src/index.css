@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface-base text-neutral font-sans antialiased;
+  }
+
+  /* Focus visible for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-blue rounded-sm;
+  }
+}
+
+@layer utilities {
+  .text-neutral {
+    color: #E8E6E0;
+  }
+  .text-neutral-muted {
+    color: #9E9B94;
+  }
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  .container-narrow {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
