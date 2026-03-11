@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const faqs = [
   {
@@ -44,7 +45,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       >
         <span className="text-sm md:text-base font-medium">{q}</span>
         <span
-          className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center transition-transform duration-200"
+          className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center transition-transform duration-300"
           style={{
             backgroundColor: 'rgba(25,37,170,0.18)',
             color: '#6B7ECC',
@@ -58,12 +59,19 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         </span>
       </button>
 
-      <div
-        className="overflow-hidden transition-all duration-300"
-        style={{ maxHeight: open ? '400px' : '0px' }}
-      >
-        <p className="pb-5 text-sm leading-relaxed" style={{ color: '#9E9B94' }}>{a}</p>
-      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <p className="pb-5 text-sm leading-relaxed" style={{ color: '#9E9B94' }}>{a}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -73,7 +81,13 @@ export default function FAQ() {
     <section id="faq" className="section-padding">
       <div className="container-narrow">
         {/* Header */}
-        <div className="text-center mb-12 md:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-12 md:mb-16"
+        >
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#1925AA' }}>
             FAQ
           </p>
@@ -83,10 +97,14 @@ export default function FAQ() {
           <p className="text-base md:text-lg max-w-xl mx-auto leading-relaxed" style={{ color: '#9E9B94' }}>
             Alles, was Sie vor dem Start wissen möchten.
           </p>
-        </div>
+        </motion.div>
 
         {/* Accordion */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           className="max-w-2xl mx-auto rounded-xl border border-surface-border divide-y-0 overflow-hidden"
           style={{ backgroundColor: '#111527' }}
         >
@@ -95,7 +113,7 @@ export default function FAQ() {
               <FAQItem key={f.q} q={f.q} a={f.a} />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

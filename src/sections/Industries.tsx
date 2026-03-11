@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 const industries = [
   {
     icon: (
@@ -20,35 +22,36 @@ const industries = [
   {
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m-1 4h1m-1 4h1m4-12h1m-1 4h1m-1 4h1m-1 4h1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    label: 'Sanitär',
-    sub: 'Rohr & Leitungsservice',
+    label: 'Immobilien',
+    sub: 'Makler & Hausverwaltungen',
   },
   {
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="currentColor" opacity="0" />
-        <path d="M9.663 17h4.673M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 8v4l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    label: 'Heizung',
-    sub: 'Heizungsanlagen & Wartung',
+    label: 'Gesundheitswesen',
+    sub: 'Arztpraxen & Kliniken',
   },
   {
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zM12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M20.59 14.41l-2.83-2.83M3.41 14.41l2.83-2.83M12 22v-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    label: 'Klima & Lüftung',
-    sub: 'Klimaanlagen & Lüftungssysteme',
+    label: 'Kfz-Betriebe',
+    sub: 'Werkstätten & Autohäuser',
   },
   {
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     label: 'Weitere Betriebe',
@@ -56,12 +59,40 @@ const industries = [
   },
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const
+    },
+  },
+}
+
 export default function Industries() {
   return (
     <section id="branchen" className="section-padding bg-surface-elevated">
       <div className="container-narrow">
         {/* Header */}
-        <div className="text-center mb-12 md:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-12 md:mb-16"
+        >
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#1925AA' }}>
             Branchen
           </p>
@@ -71,18 +102,25 @@ export default function Industries() {
           <p className="text-base md:text-lg max-w-xl mx-auto leading-relaxed" style={{ color: '#9E9B94' }}>
             HG Automations wurde für Unternehmen entwickelt, bei denen Erreichbarkeit entscheidend ist.
           </p>
-        </div>
+        </motion.div>
 
         {/* Industry cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          className="grid grid-cols-2 md:grid-cols-3 gap-4"
+        >
           {industries.map((ind) => (
-            <div
+            <motion.div
+              variants={itemVariants}
               key={ind.label}
-              className="flex flex-col items-center text-center gap-3 p-5 md:p-6 rounded-xl border border-surface-border transition-all duration-200 hover:border-brand-blue/30"
+              className="group flex flex-col items-center text-center gap-3 p-5 md:p-6 rounded-xl border border-surface-border transition-all duration-300 hover:border-brand-blue/40 hover:shadow-[0_8px_30px_rgba(25,37,170,0.12)] hover:-translate-y-1"
               style={{ backgroundColor: '#0C0E1A' }}
             >
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
+                className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
                 style={{ backgroundColor: 'rgba(25,37,170,0.18)', color: '#6B7ECC' }}
               >
                 {ind.icon}
@@ -91,9 +129,9 @@ export default function Industries() {
                 <p className="font-semibold text-white text-sm">{ind.label}</p>
                 <p className="text-xs mt-0.5" style={{ color: '#6B6860' }}>{ind.sub}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

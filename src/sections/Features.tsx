@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 const features = [
   {
     icon: (
@@ -55,12 +57,40 @@ const features = [
   },
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const
+    },
+  },
+}
+
 export default function Features() {
   return (
     <section id="funktionen" className="section-padding">
       <div className="container-narrow">
         {/* Header */}
-        <div className="text-center mb-12 md:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-12 md:mb-16"
+        >
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#1925AA' }}>
             Funktionen & Vorteile
           </p>
@@ -70,18 +100,25 @@ export default function Features() {
           <p className="text-base md:text-lg max-w-xl mx-auto leading-relaxed" style={{ color: '#9E9B94' }}>
             Weniger Aufwand, mehr Struktur – konkrete Funktionen für den Alltag.
           </p>
-        </div>
+        </motion.div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
+        >
           {features.map((f) => (
-            <div
+            <motion.div
+              variants={itemVariants}
               key={f.title}
-              className="flex flex-col gap-3 p-5 md:p-6 rounded-xl border border-surface-border transition-all duration-200 hover:border-brand-blue/30 hover:shadow-card-hover"
+              className="group flex flex-col gap-3 p-5 md:p-6 rounded-xl border border-surface-border transition-all duration-300 hover:border-brand-blue/40 hover:shadow-[0_8px_30px_rgba(25,37,170,0.12)] hover:-translate-y-1 bg-surface-card"
               style={{ backgroundColor: '#111527' }}
             >
               <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center"
+                className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
                 style={{ backgroundColor: 'rgba(25,37,170,0.18)', color: '#6B7ECC' }}
               >
                 {f.icon}
@@ -90,9 +127,9 @@ export default function Features() {
                 <h3 className="font-semibold text-white mb-1 text-sm md:text-base">{f.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: '#9E9B94' }}>{f.body}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -1,16 +1,44 @@
+import { motion } from 'framer-motion'
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        <div
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ 
+            opacity: [0, 1, 0.8, 1], 
+            scale: [0.8, 1, 1.05, 1],
+            rotate: [0, 5, -5, 0]
+          }}
+          transition={{ 
+            duration: 15, 
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
           className="absolute inset-0"
           style={{
             background:
               'radial-gradient(ellipse 90% 65% at 50% -5%, rgba(25,37,170,0.35) 0%, transparent 65%)',
           }}
         />
-        <div
+        <motion.div
+          initial={{ opacity: 0, scale: 1.2 }}
+          animate={{ 
+            opacity: [0, 1, 0.7, 1], 
+            scale: [1.2, 1, 1.1, 1],
+            x: [0, 30, -30, 0],
+            y: [0, -20, 20, 0]
+          }}
+          transition={{ 
+            duration: 20, 
+            ease: "easeInOut", 
+            delay: 0.2,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
           className="absolute inset-0"
           style={{
             background:
@@ -33,15 +61,23 @@ export default function Hero() {
         <div className="max-w-4xl mx-auto text-center">
 
           {/* Pre-label */}
-          <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-surface-border bg-surface-card">
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-surface-border bg-surface-card"
+          >
             <span className="w-1.5 h-1.5 rounded-full bg-brand-blue shrink-0" style={{ boxShadow: '0 0 6px rgba(25,37,170,0.8)' }} />
             <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#9E9B94' }}>
               KI Voice Bot für den deutschen Mittelstand
             </span>
-          </div>
+          </motion.div>
 
           {/* Headline */}
-          <h1
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="text-display font-bold text-white mb-7"
             style={{ letterSpacing: '-0.03em' }}
           >
@@ -55,37 +91,48 @@ export default function Hero() {
               Anruf
             </span>{' '}
             mehr.
-          </h1>
+          </motion.h1>
 
           {/* Subheadline */}
-          <p
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             className="text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed"
             style={{ color: '#8A8880' }}
           >
             HG Automations automatisiert Ihren Telefonservice –{' '}
             strukturiert, zuverlässig und vollständig auf Deutsch.
-          </p>
+          </motion.p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center mb-16"
+          >
             <a
               href="#kontakt"
-              className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-lg bg-brand-blue text-white font-semibold text-base transition-all duration-200 hover:bg-brand-blue-light hover:shadow-brand focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+              className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-lg bg-brand-blue text-white font-semibold text-base transition-all duration-300 hover:bg-brand-blue-light hover:shadow-[0_4px_20px_rgba(25,37,170,0.4)] hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
             >
               Telefonservice automatisieren
               <ArrowRight />
             </a>
             <a
               href="#problem"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg border border-surface-border text-base font-medium transition-all duration-200 hover:bg-surface-card hover:border-brand-blue/40"
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg border border-surface-border text-base font-medium transition-all duration-300 hover:bg-surface-card hover:border-brand-blue/40 hover:-translate-y-1"
               style={{ color: '#C8C5BE' }}
             >
               Mehr erfahren
             </a>
-          </div>
+          </motion.div>
 
           {/* Trust row */}
-          <div
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
             className="flex flex-wrap items-center justify-center gap-5 pt-8 border-t"
             style={{ borderColor: '#1A1E33' }}
           >
@@ -106,7 +153,7 @@ export default function Hero() {
             <span className="text-xs font-medium" style={{ color: '#5A5850' }}>
               SHK · Elektro · Handwerk · Dienstleistung
             </span>
-          </div>
+          </motion.div>
 
         </div>
       </div>

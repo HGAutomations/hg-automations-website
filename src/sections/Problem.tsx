@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 const problems = [
   {
     icon: (
@@ -39,12 +41,40 @@ const problems = [
   },
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const
+    },
+  },
+}
+
 export default function Problem() {
   return (
     <section id="problem" className="section-padding bg-surface-elevated">
       <div className="container-narrow">
         {/* Header */}
-        <div className="text-center mb-12 md:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-12 md:mb-16"
+        >
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#1925AA' }}>
             Die Herausforderung
           </p>
@@ -54,18 +84,25 @@ export default function Problem() {
           <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: '#9E9B94' }}>
             Für viele Betriebe ist Erreichbarkeit am Telefon täglich eine Herausforderung.
           </p>
-        </div>
+        </motion.div>
 
         {/* Problem cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
+        >
           {problems.map((p) => (
-            <div
+            <motion.div
+              variants={itemVariants}
               key={p.title}
-              className="flex gap-4 p-5 md:p-6 rounded-xl border border-surface-border bg-surface-card transition-all duration-200 hover:border-brand-blue/30 hover:shadow-card-hover"
+              className="flex gap-4 p-5 md:p-6 rounded-xl border border-surface-border bg-surface-card transition-all duration-300 hover:border-brand-blue/40 hover:shadow-[0_8px_30px_rgba(25,37,170,0.12)] hover:-translate-y-1"
               style={{ backgroundColor: '#161A30' }}
             >
               <div
-                className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mt-0.5"
+                className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mt-0.5 transition-transform duration-300 group-hover:scale-110"
                 style={{ backgroundColor: 'rgba(25,37,170,0.15)', color: '#6B7ECC' }}
               >
                 {p.icon}
@@ -74,9 +111,9 @@ export default function Problem() {
                 <h3 className="font-semibold text-white mb-1 text-sm md:text-base">{p.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: '#9E9B94' }}>{p.body}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

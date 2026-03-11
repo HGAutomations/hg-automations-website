@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 const functions_ = [
   {
     icon: (
@@ -37,13 +39,40 @@ const functions_ = [
   },
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, x: 24 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const
+    },
+  },
+}
+
 export default function Loesung() {
   return (
     <section id="loesung" className="section-padding">
       <div className="container-narrow">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#1925AA' }}>
               Die Lösung
             </p>
@@ -56,25 +85,32 @@ export default function Loesung() {
 
             <a
               href="#kontakt"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-brand-blue text-white text-sm font-semibold transition-all duration-200 hover:bg-brand-blue-light hover:shadow-brand"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-brand-blue text-white text-sm font-semibold transition-all duration-300 hover:bg-brand-blue-light hover:shadow-[0_4px_20px_rgba(25,37,170,0.4)] hover:-translate-y-1"
             >
               Jetzt anfragen
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-          </div>
+          </motion.div>
 
           {/* Right: Feature list */}
-          <div className="flex flex-col gap-4">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            className="flex flex-col gap-4"
+          >
             {functions_.map((f) => (
-              <div
+              <motion.div
+                variants={itemVariants}
                 key={f.title}
-                className="flex gap-4 p-4 md:p-5 rounded-xl border border-surface-border transition-all duration-200 hover:border-brand-blue/30"
+                className="flex gap-4 p-4 md:p-5 rounded-xl border border-surface-border transition-all duration-300 hover:border-brand-blue/40 hover:shadow-[0_8px_30px_rgba(25,37,170,0.12)] hover:-translate-y-1 bg-surface-card"
                 style={{ backgroundColor: '#111527' }}
               >
                 <div
-                  className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+                  className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
                   style={{ backgroundColor: 'rgba(25,37,170,0.2)', color: '#6B7ECC' }}
                 >
                   {f.icon}
@@ -83,9 +119,9 @@ export default function Loesung() {
                   <h3 className="font-semibold text-white text-sm mb-0.5">{f.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: '#9E9B94' }}>{f.body}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 export default function Footer() {
   const year = new Date().getFullYear()
 
@@ -9,15 +11,26 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-10 md:mb-12">
 
           {/* Brand */}
-          <div className="flex flex-col gap-3">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex flex-col gap-3"
+          >
             <img src="/HGLogoPure.svg" alt="HG Automations" className="h-8 w-auto" />
             <p className="text-sm leading-relaxed max-w-xs" style={{ color: '#3E3C36' }}>
               KI-gestützte Telefonautomatisierung für serviceorientierte Betriebe in Deutschland.
             </p>
-          </div>
+          </motion.div>
 
           {/* Navigation */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          >
             <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#2A2820' }}>
               Navigation
             </p>
@@ -32,7 +45,7 @@ export default function Footer() {
                 <li key={l.label}>
                   <a
                     href={l.href}
-                    className="text-sm transition-colors duration-150 hover:text-white"
+                    className="text-sm transition-colors duration-300 hover:text-white inline-block hover:translate-x-1"
                     style={{ color: '#4A4840' }}
                   >
                     {l.label}
@@ -40,10 +53,15 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Legal + CTA */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          >
             <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#2A2820' }}>
               Rechtliches
             </p>
@@ -55,7 +73,7 @@ export default function Footer() {
                 <li key={l.label}>
                   <a
                     href={l.href}
-                    className="text-sm transition-colors duration-150 hover:text-white"
+                    className="text-sm transition-colors duration-300 hover:text-white inline-block hover:translate-x-1"
                     style={{ color: '#4A4840' }}
                   >
                     {l.label}
@@ -65,18 +83,22 @@ export default function Footer() {
             </ul>
             <a
               href="#kontakt"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-brand-blue text-white text-xs font-semibold transition-all duration-200 hover:bg-brand-blue-light hover:shadow-brand"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-brand-blue text-white text-xs font-semibold transition-all duration-300 hover:bg-brand-blue-light hover:shadow-[0_4px_20px_rgba(25,37,170,0.4)] hover:-translate-y-0.5"
             >
               Telefonservice anfragen
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom bar */}
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6"
           style={{ borderTop: '1px solid #0F1120' }}
         >
@@ -84,10 +106,10 @@ export default function Footer() {
             © {year} HG Automations. Alle Rechte vorbehalten.
           </p>
           <div className="flex items-center gap-4">
-            <img src="/dsgvokonform.png" alt="DSGVO-konform" className="h-6 w-auto" style={{ opacity: 0.35 }} />
-            <img src="/made-in-germany.svg" alt="Made in Germany" className="h-6 w-auto" style={{ opacity: 0.35 }} />
+            <img src="/dsgvokonform.png" alt="DSGVO-konform" className="h-6 w-auto transition-opacity duration-300 hover:opacity-100" style={{ opacity: 0.35 }} />
+            <img src="/made-in-germany.svg" alt="Made in Germany" className="h-6 w-auto transition-opacity duration-300 hover:opacity-100" style={{ opacity: 0.35 }} />
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </footer>

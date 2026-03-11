@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
   { label: 'Lösungen', href: '#loesung' },
@@ -26,10 +27,13 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-surface-base/96 backdrop-blur-lg border-b border-surface-border shadow-[0_1px_0_rgba(255,255,255,0.03)]'
+          ? 'bg-surface-base/90 backdrop-blur-xl border-b border-surface-border shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
           : 'bg-transparent'
       }`}
     >
@@ -45,7 +49,7 @@ export default function Navbar() {
             <img
               src="/HGLogoPure.svg"
               alt="HG Automations"
-              className="h-8 md:h-9 w-auto transition-opacity duration-200 group-hover:opacity-80"
+              className="h-8 md:h-9 w-auto transition-all duration-300 group-hover:opacity-80 group-hover:scale-105"
             />
           </a>
 
@@ -55,7 +59,7 @@ export default function Navbar() {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 hover:text-white hover:bg-surface-card focus-visible:text-white focus-visible:bg-surface-card"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:text-white hover:bg-surface-card focus-visible:text-white focus-visible:bg-surface-card hover:-translate-y-0.5"
                   style={{ color: link.badge ? '#52504A' : '#8A8880' }}
                 >
                   {link.label}
@@ -79,7 +83,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <a
             href="#kontakt"
-            className="hidden lg:inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-brand-blue text-white text-sm font-semibold transition-all duration-200 hover:bg-brand-blue-light hover:shadow-brand focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+            className="hidden lg:inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-brand-blue text-white text-sm font-semibold transition-all duration-300 hover:bg-brand-blue-light hover:shadow-[0_4px_20px_rgba(25,37,170,0.4)] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
           >
             Telefonservice anfragen
           </a>
@@ -108,44 +112,50 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          open ? 'max-h-[600px] border-t border-surface-border' : 'max-h-0'
-        }`}
-        style={{ backgroundColor: '#0A0C18' }}
-      >
-        <ul className="container-wide py-3 flex flex-col">
-          {navLinks.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between py-3 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-surface-card"
-                style={{ color: link.badge ? '#52504A' : '#C8C5BE' }}
-              >
-                {link.label}
-                {link.badge && (
-                  <span
-                    className="text-[9px] font-semibold px-2 py-0.5 rounded border leading-none tracking-wide"
-                    style={{ color: '#52504A', borderColor: '#1A1E33', backgroundColor: '#0F1120' }}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden overflow-hidden border-t border-surface-border"
+            style={{ backgroundColor: '#0A0C18' }}
+          >
+            <ul className="container-wide py-3 flex flex-col">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between py-3 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-surface-card"
+                    style={{ color: link.badge ? '#52504A' : '#C8C5BE' }}
                   >
-                    In Vorbereitung
-                  </span>
-                )}
-              </a>
-            </li>
-          ))}
-          <li className="pt-3 pb-1">
-            <a
-              href="#kontakt"
-              onClick={() => setOpen(false)}
-              className="flex items-center justify-center w-full py-3.5 rounded-lg bg-brand-blue text-white text-sm font-semibold transition-all duration-200 hover:bg-brand-blue-light"
-            >
-              Telefonservice anfragen
-            </a>
-          </li>
-        </ul>
-      </div>
-    </header>
+                    {link.label}
+                    {link.badge && (
+                      <span
+                        className="text-[9px] font-semibold px-2 py-0.5 rounded border leading-none tracking-wide"
+                        style={{ color: '#52504A', borderColor: '#1A1E33', backgroundColor: '#0F1120' }}
+                      >
+                        In Vorbereitung
+                      </span>
+                    )}
+                  </a>
+                </li>
+              ))}
+              <li className="pt-3 pb-1">
+                <a
+                  href="#kontakt"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center w-full py-3.5 rounded-lg bg-brand-blue text-white text-sm font-semibold transition-all duration-300 hover:bg-brand-blue-light hover:shadow-[0_4px_20px_rgba(25,37,170,0.4)]"
+                >
+                  Telefonservice anfragen
+                </a>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   )
 }

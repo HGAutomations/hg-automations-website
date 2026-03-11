@@ -1,8 +1,14 @@
+import { motion } from 'framer-motion'
+
 export default function CTA() {
   return (
     <section className="section-padding bg-surface-elevated">
       <div className="container-narrow">
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="relative overflow-hidden rounded-2xl border border-brand-blue/30 p-8 md:p-12 text-center"
           style={{ backgroundColor: '#0D1035' }}
         >
@@ -30,7 +36,7 @@ export default function CTA() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="#kontakt"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-brand-blue text-white font-semibold text-sm transition-all duration-200 hover:bg-brand-blue-light hover:shadow-brand focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-brand-blue text-white font-semibold text-sm transition-all duration-300 hover:bg-brand-blue-light hover:shadow-[0_4px_20px_rgba(25,37,170,0.4)] hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
               >
                 Telefonservice automatisieren
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -39,14 +45,14 @@ export default function CTA() {
               </a>
               <a
                 href="#faq"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg border border-surface-border text-sm font-semibold transition-all duration-200 hover:bg-surface-card hover:border-brand-blue/40"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg border border-surface-border text-sm font-semibold transition-all duration-300 hover:bg-surface-card hover:border-brand-blue/40 hover:-translate-y-1"
                 style={{ color: '#E8E6E0' }}
               >
                 Fragen lesen
               </a>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

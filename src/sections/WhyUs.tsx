@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 const points = [
   {
     icon: (
@@ -38,18 +40,46 @@ const points = [
   },
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, x: 24 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const
+    },
+  },
+}
+
 export default function WhyUs() {
   return (
     <section id="warum" className="section-padding">
       <div className="container-narrow">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left */}
-          <div className="lg:sticky lg:top-28">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:sticky lg:top-28"
+          >
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#1925AA' }}>
               Warum HG Automations
             </p>
             <h2 className="text-heading-1 font-bold text-white mb-4">
-              Gebaut für den deutschen Mittelstand.
+              Automatisierung, die Ihren Betrieb voranbringt.
             </h2>
             <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: '#9E9B94' }}>
               Kein generisches Produkt von der Stange. HG Automations wurde gezielt für serviceorientierte Betriebe in Deutschland entwickelt.
@@ -60,18 +90,25 @@ export default function WhyUs() {
               <img src="/dsgvokonform.png" alt="DSGVO-konform" className="h-10 w-auto opacity-90" />
               <img src="/made-in-germany.svg" alt="Made in Germany" className="h-10 w-auto opacity-90" />
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: Points */}
-          <div className="flex flex-col gap-4">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            className="flex flex-col gap-4"
+          >
             {points.map((p) => (
-              <div
+              <motion.div
+                variants={itemVariants}
                 key={p.title}
-                className="flex gap-4 p-5 md:p-6 rounded-xl border border-surface-border transition-all duration-200 hover:border-brand-blue/30"
+                className="group flex gap-4 p-5 md:p-6 rounded-xl border border-surface-border transition-all duration-300 hover:border-brand-blue/40 hover:shadow-[0_8px_30px_rgba(25,37,170,0.12)] hover:-translate-y-1 bg-surface-card"
                 style={{ backgroundColor: '#111527' }}
               >
                 <div
-                  className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mt-0.5"
+                  className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mt-0.5 transition-transform duration-300 group-hover:scale-110"
                   style={{ backgroundColor: 'rgba(25,37,170,0.18)', color: '#6B7ECC' }}
                 >
                   {p.icon}
@@ -80,9 +117,9 @@ export default function WhyUs() {
                   <h3 className="font-semibold text-white mb-1 text-sm md:text-base">{p.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: '#9E9B94' }}>{p.body}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

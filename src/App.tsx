@@ -11,6 +11,7 @@ import Future from './sections/Future'
 import FAQ from './sections/FAQ'
 import CTA from './sections/CTA'
 import Contact from './sections/Contact'
+import VoiceBotWidget from './components/VoiceBotWidget'
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <VoiceBotWidget />
     </>
   )
 }
